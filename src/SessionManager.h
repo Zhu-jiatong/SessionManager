@@ -3,21 +3,23 @@
 
 #include <Arduino.h>
 #include <Arduino_JSON.h>
+#include "SQLiteDatabaseManager/src/DatabaseConnection.h"
 
 class SessionManager
 {
 public:
-	SessionManager();
-	~SessionManager();
+	SessionManager() = default;
+	~SessionManager() = default;
 
 	void open(const String &dbPath);
-	void newSession();
-	void terminateSession();
-	void updateSession();
-	JSONVar getSessionData();
+	JSONVar newSession(const String &username, uint32_t ip);
+	void terminateSession(const String &sessionId);
+	JSONVar getSessionData(const String &sessionId);
 
 private:
-	String generateSessionId();
+	DatabaseConnection _db;
+
+	String generateSessionId(const String &username, uint32_t ip);
 };
 
 #endif // _SessionManager_h
