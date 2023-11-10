@@ -3,7 +3,7 @@
 
 #include <Arduino.h>
 #include <Arduino_JSON.h>
-#include <DatabaseConnection.h>
+#include "SQLiteDatabaseManager/src/DatabaseConnection.h"
 
 class SessionManager
 {
