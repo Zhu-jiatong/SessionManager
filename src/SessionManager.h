@@ -12,9 +12,9 @@ public:
 	~SessionManager() = default;
 
 	void open(const String &dbPath);
-	JSONVar newSession(const String &username, uint32_t ip);
+	String newSession(const String &username, uint32_t ip);
 	void terminateSession(const String &sessionId);
-	JSONVar getSessionData(const String &sessionId);
+	String getUsername(const String &sessionId);
 
 private:
 	DatabaseConnection _db;

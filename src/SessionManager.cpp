@@ -9,11 +9,11 @@ void SessionManager::open(const String &path)
 	_db.execute("CREATE TABLE IF NOT EXISTS sessions (session_id TEXT NOT NULL PRIMARY KEY, username TEXT NOT NULL) WITHOUT ROWID");
 }
 
-JSONVar SessionManager::newSession(const String &username, uint32_t ip)
+String SessionManager::newSession(const String &username, uint32_t ip)
 {
 	String sessionId = generateSessionId(username, ip);
 	_db.execute("INSERT INTO sessions VALUES (?, ?)", sessionId, username);
-	return getSessionData(sessionId);
+	return sessionId;
 }
 
 void SessionManager::terminateSession(const String &sessionId)
@@ -21,9 +21,9 @@ void SessionManager::terminateSession(const String &sessionId)
 	_db.execute("DELETE FROM sessions WHERE session_id=?", sessionId);
 }
 
-JSONVar SessionManager::getSessionData(const String &sessionId)
+String SessionManager::getUsername(const String &sessionId)
 {
-	return _db.execute("SELECT * FROM sessions WHERE session_id=?", sessionId);
+	return _db.execute("SELECT username FROM sessions WHERE session_id=?", sessionId)[0]["username"];
 }
 
 String SessionManager::generateSessionId(const String &username, uint32_t ip)

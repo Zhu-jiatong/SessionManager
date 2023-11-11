@@ -82,5 +82,5 @@ void checkSession()
 		;
 	String sessionId = Serial.readString();
 
-	Serial.println(sessions.getSessionData(sessionId));
+	Serial.println(sessions.getUsername(sessionId));
 }
